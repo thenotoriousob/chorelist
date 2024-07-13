@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Choreslist</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <h1>Choreslist</h1>
+            </div> 
+        </header>
+        <main>
+            <div class="container">
+                <div class="chore-input">
+                    <input type="text" id="chore" placeholder="Do dishes">
+                    <button class="add-btn" id="add-btn">-></button>
+                    <button class="delete-btn" id="delete-btn">✕</button>
+                </div>
+                <p id="error" class="error"></p>
+                <ul id="chore-list"></ul>
+                <div class="img" id="chores-complete"></div>
+            </div>
+        </main>
+        <script src="index.js"></script>
+    </body>
+</html>
