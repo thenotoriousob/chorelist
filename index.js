@@ -22,16 +22,7 @@ if (choresFromLocalStorage && choresFromLocalStorage.length > 0) {
 
 addBtn.addEventListener("click", function() {
 
-    // If the entry is blank or already exists then don't add it
-    if (choreEl.value === "" || chores.includes(choreEl.value)) {
-        errorEl.textContent = "Chore cannot be blank or already exist";
-        return;
-    }
-    
-    chores.push(choreEl.value);
-    localStorage.setItem("chores", JSON.stringify(chores));
-    choresExist = true;
-    errorEl.textContent = "";
+    addNewChore(choreEl.value);
 
     renderChores(chores);
 
@@ -51,6 +42,21 @@ deleteBtn.addEventListener("click", function() {
     chores = [];
     renderChores(chores);
 });
+
+function addNewChore(chore) {
+
+    // If the entry is blank or already exists then don't add it
+    if (chore === "" || chores.includes(chore)) {
+        errorEl.textContent = "Chore cannot be blank or already exist";
+        return;
+    }
+    
+    chores.push(chore);
+    localStorage.setItem("chores", JSON.stringify(chores));
+    choresExist = true;
+    errorEl.textContent = "";
+
+}
 
 
 function renderChores(choreArr) {
@@ -100,6 +106,7 @@ function addChoreClickListeners() {
 
 function isChoresComplete () {
 
+    /* Only want to display the giphy if a chore existed and now the list is zero */
     if (choresExist && chores.length === 0) {
         choresCompleteEl.style.backgroundImage = `url(${giphyUrl})`;
         choresExist = false;
