@@ -16,13 +16,14 @@ let choresExist = false;
 // If we already have data in local storage then display it
 if (choresFromLocalStorage && choresFromLocalStorage.length > 0) {
     chores = choresFromLocalStorage;
-    choresExist = true;
     renderChores(chores);
 }
 
 addBtn.addEventListener("click", function() {
 
-    addNewChore(choreEl.value);
+    if (!addNewChore(choreEl.value)) {
+        return;
+    }
 
     renderChores(chores);
 
@@ -48,19 +49,18 @@ function addNewChore(chore) {
     // If the entry is blank or already exists then don't add it
     if (chore === "" || chores.includes(chore)) {
         errorEl.textContent = "Chore cannot be blank or already exist";
-        return;
+        return false;
     }
     
     chores.push(chore);
     localStorage.setItem("chores", JSON.stringify(chores));
-    choresExist = true;
-    errorEl.textContent = "";
+
+    return true;
 
 }
 
 
 function renderChores(choreArr) {
-
 
     let choreList = "";
 
@@ -69,6 +69,12 @@ function renderChores(choreArr) {
     }
 
     choreListEl.innerHTML = choreList;
+    errorEl.textContent = "";
+
+    /* We don't want the giphy displaying at the start when there are no chores */
+    if (!choresExist && chores.length > 0) {
+        choresExist = true;
+    }
 
     // If chores are complete then don't need to do anything else
     if (isChoresComplete()) {
@@ -80,7 +86,6 @@ function renderChores(choreArr) {
 
     /* Because we have rerenderd the chores we need to readd the listeners */
     addChoreClickListeners();
-    
 
 };
 
